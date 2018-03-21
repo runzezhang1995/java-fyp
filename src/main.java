@@ -15,7 +15,7 @@ public class main {
 	        String inputImagePath = "dataset/train-images.idx3-ubyte";
 	        String inputLabelPath = "dataset/train-labels.idx1-ubyte";
 
-	        String outputPath = "/";
+	        String outputPath = "./Image";
 
 	        int[] hashMap = new int[10]; 
 
@@ -35,18 +35,19 @@ public class main {
 	            
 	            int numberOfPixels = numberOfRows * numberOfColumns;
 	            int[] imgPixels = new int[numberOfPixels];
-
+	            int[][] images = new int[numberOfImages][numberOfPixels]; 
 	            for(int i = 0; i < numberOfImages; i++) {
-
+	            	
 	                if(i % 100 == 0) {System.out.println("Number of images extracted: " + i);}
 
 	                for(int p = 0; p < numberOfPixels; p++) {
 	                    int gray = 255 - inImage.read();
 	                    imgPixels[p] = 0xFF000000 | (gray<<16) | (gray<<8) | gray;
 	                }
-
+                    images[i] = imgPixels;
+                    
 	                image.setRGB(0, 0, numberOfColumns, numberOfRows, imgPixels, 0, numberOfColumns);
-
+	                
 	                int label = inLabel.read();
 
 	                hashMap[label]++;
